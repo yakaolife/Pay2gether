@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>Hello BrainTree</title>
+		<script src="http://fb.me/react-0.12.2.js"></script>
+		<script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+	</head>
+	<body>
+		<div id="content"></div>
+		<script type="text/jsx" src="app.jsx"></script>
+
+		<form id="checkout" method="post" action="/checkout">
+		  <div id="payment-form"></div>
+		  <input type="submit" value="Pay $10">
+		</form>
+	</body>
+</html> 

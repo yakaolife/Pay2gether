@@ -1,0 +1,7 @@
+{
+  "name": "Pay2gether",
+  "dependencies": {
+    "express": "~4.11.2",
+    "socket.io": "^1.3.7"
+  }
+}
