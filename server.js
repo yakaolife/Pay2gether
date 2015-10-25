@@ -1,4 +1,3 @@
-
 var braintree=require('braintree');
 var express = require('express');
 var app = require('express')();
@@ -7,6 +6,10 @@ var http=require('http');
 var fs = require('fs');
 var url = require('url');
 var path = require('path');
+
+app.use('/material-ui', express.static(__dirname + '/node_modules/material-ui/'));
+//app.use('/react', express.static(__dirname + '/node_modules/react/'));
+var RaisedButton = require('material-ui/lib/raised-button');
 
 var server = app.listen(8081);
 console.log('Server listening on port 8081');
