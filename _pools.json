@@ -1,20 +1,34 @@
 [
     {
         "Name": "Money2020",
-        "MoneyValue": 300,
-        "CurrentValue": 150,
+        "MoneyValue": "300",
+        "CurrentValue": "150",
         "Members": [
             "Kevin Soong",
             "Betsy Kao",
             "Li-Lun Wong",
             "Polung Chen",
             "Kristine Chuang"
+        ],
+        "Transactions": [
+          {
+            "User": "Kevin Soong",
+            "Amount": 100,
+            "Time": "2015-10-24T16:40:00.000Z",
+            "Description": "Wicked Spoon"
+          },
+          {
+            "User": "Betsy Kao",
+            "Amount": 50,
+            "Time": "2015-10-23T09:00:00.000Z",
+            "Description": "Taxi"
+          }
         ]
     },
     {
         "Name": "TempGroup",
-        "MoneyValue": 450,
-        "CurrentValue": 450,
+        "MoneyValue": "450",
+        "CurrentValue": "450",
         "Members": [
             "Kevin Soong",
             "Betsy Kao",
@@ -24,7 +38,7 @@
     {
         "Name": "testGroup",
         "MoneyValue": "311",
-        "currentValue": "311",
+        "CurrentValue": "311",
         "Members": [
             "Amy Kao",
             "Betsy Kao",
@@ -34,7 +48,7 @@
     {
         "Name": "testGroup2",
         "MoneyValue": "40000",
-        "currentValue": "40000",
+        "CurrentValue": "40000",
         "Members": [
             "Amy Kao",
             "Betsy Kao",
@@ -44,7 +58,7 @@
     {
         "Name": "test3",
         "MoneyValue": "4567",
-        "currentValue": "4567",
+        "CurrentValue": "4567",
         "Members": [
             "Amy Kao",
             "Betsy Kao",
@@ -54,71 +68,12 @@
     {
         "Name": "test4",
         "MoneyValue": "392805",
-        "currentValue": "392805",
+        "CurrentValue": "392805",
         "Members": [
             "Amy Kao",
             "Betsy Kao",
             "MuMu Lee"
         ]
-    },
-    {
-        "Name": "TestAgain 249",
-        "MoneyValue": "",
-        "currentValue": "",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    },
-    {
-        "Name": "test 5",
-        "MoneyValue": "453",
-        "currentValue": "453",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    },
-    {
-        "Name": "test6",
-        "MoneyValue": "2000",
-        "currentValue": "2000",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    },
-    {
-        "Name": "test7",
-        "MoneyValue": "2482",
-        "currentValue": "2482",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    },
-    {
-        "Name": "testset",
-        "MoneyValue": "130000000000",
-        "currentValue": "130000000000",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    },
-    {
-        "Name": "newPool",
-        "MoneyValue": "23",
-        "currentValue": "23",
-        "Members": [
-            "Amy Kao",
-            "Betsy Kao",
-            "MuMu Lee"
-        ]
-    }
+    } 
+
 ]
