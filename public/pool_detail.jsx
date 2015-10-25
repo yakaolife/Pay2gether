@@ -13,7 +13,7 @@ var PoolDetailTitle = React.createClass({
     return (
         <AppBar
             title={this.props.title}
-            iconElementLeft={<IconButton><NavigationArrowBack /></IconButton>} />);
+            iconElementLeft={<IconButton onClick={this.props.toHomePageView}><NavigationArrowBack /></IconButton>} />);
   }
 });
 
@@ -131,7 +131,7 @@ var PoolDetail = React.createClass({
   render: function() {
     return (
         <div>
-          <PoolDetailTitle title={this.state.Name} />
+          <PoolDetailTitle title={this.state.Name} toHomePageView={this.props.toHomePageView}/>
           <PoolDetailMembers members={this.state.Members} />
           <PoolDetailValue limit={this.state.MoneyValue} current={this.state.CurrentValue} />
           <PoolDetailHistory transactions={this.state.Transactions} />
@@ -140,7 +140,4 @@ var PoolDetail = React.createClass({
   }
 });
 
-ReactDOM.render(
-	<PoolDetail poolName='Money2020' />,
-	document.getElementById('content')
-);
+module.exports = PoolDetail;

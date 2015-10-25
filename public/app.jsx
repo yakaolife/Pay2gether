@@ -44,7 +44,7 @@ var HomePageView = React.createClass({
             </IconButton>
           }
         />
-        <PoolList/>
+        <PoolList toPoolDetail={this.props.toPoolDetail}/>
       </div>
     );
   }
@@ -70,8 +70,9 @@ var PoolList = React.createClass({
 
   render: function() {
     if (this.state.pools) {
+      var that = this;
       var PoolItems = this.state.pools.map(function(pool) {
-        return (<PoolItem key={pool.Name} pool={pool} />);
+        return (<PoolItem key={pool.Name} pool={pool} toPoolDetail={that.props.toPoolDetail}/>);
       });
     } else {
       var PoolItems = [];
@@ -87,6 +88,7 @@ var PoolItem = React.createClass({
         leftAvatar={<Avatar src="asset/people_1.png" />}
         primaryText={this.props.pool.Name}
         secondaryText={this.props.pool.MoneyValue}
+        onClick={this.props.toPoolDetail}
       />);
   }
 });
@@ -124,16 +126,28 @@ var Pay2getherApp = React.createClass({
                           console.log(event);
   },
 
+  changeToPoolDetail: function(event) {
+    this.setState({viewName: 'PoolDetail'});
+                          console.log(this.state.viewName);
+                          console.log(event);
+  },
+
 	render: function() {
             console.log('App render');
     if (this.state.viewName == 'HomePageView') {
       var View =
         <HomePageView
           toAddPoolPageView={this.changeToAddPoolPageView}
+          toPoolDetail={this.changeToPoolDetail}
         />;
     } else if (this.state.viewName == 'AddPoolPageView') {
       var View =
         <AddPoolPageView
+          toHomePageView={this.changeToHomePageView}
+        />;
+    } else if (this.state.viewName == 'PoolDetail') {
+      var View =
+        <PoolDetail
           toHomePageView={this.changeToHomePageView}
         />;
     }
