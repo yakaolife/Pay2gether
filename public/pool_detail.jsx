@@ -17,6 +17,12 @@ var PoolDetailTitle = React.createClass({
   }
 });
 
+var PoolDetailMember = React.createClass({
+  render: function() {
+    return (<div />);
+  }
+});
+
 var PoolDetailMembers = React.createClass({
   render: function() {
     return (<div />);
