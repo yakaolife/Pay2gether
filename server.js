@@ -45,19 +45,22 @@ io.on('connection', function(socket){
 		console.log("getPool: will return pool info");
 		fs.readFile('_pools.json', 'utf8', function(error, pools){
 			pools = JSON.parse(pools);
-			matchedPool = pools.map(function(pool){
-				if(pool.Name == poolName){
-					console.log("FOUND MATCH!");
-					return pool;
-				}
-			});
+			var found = false;
 
-			if(matchedPool){
-				callback(matchedPool, null);
-				//socket.emit('returnPoolInfo', matchedPool);
-			}else{
-				callback(null, "No pool found");
-				console.log("Pool name not found");
+			for(var i=0; i<pools.length; i++){
+				//console.log("PoolName: "+ pools[i].Name);
+				if(pools[i].Name == poolName){
+					found = true;
+					console.log("FOUND MATCH! "+pools[i].Name);
+					callback(pools[i], null);
+
+				}
+			}
+
+			console.log("found: "+found);
+			if(!found){
+				console.log("Not found");
+				callback(null, "No Pool");
 			}
 
 		});
@@ -109,8 +112,35 @@ io.on('connection', function(socket){
 
 	//Money
 
-	socket.on('chargeMoney', function(parameter){
+
+	socket.on('chargeValue', function(pool, chargeValue, callback){
 		console.log("Charge money: need to give me the Pool name and amount");
+		fs.readFile('_pools.json', 'utf8', function(error, pools){
+			pools = JSON.parse(pools);
+
+
+			for(var i = 0; i<pools.length; i++){
+				if(pools[i].Name == pool.Name){
+					console.log("Found the pool, now charge");
+					pools[i].CurrentValue -=chargeValue;
+
+				}
+			}
+			matchedPool = pools.map(function(pool){
+				if(pool.Name == poolName){
+					pool.CurrentValue -=chargeValue;
+					return pool;
+				}
+			});
+
+			if(matchedPool){
+				fs.writeFile('_pool.json', JSON.stringify(pools, null, 4), function(matchedPool, error){
+					console.log("Write updated pool file");
+					callback(matchedPool, error);
+				})
+			}
+		})
+
 	});
 
 });
