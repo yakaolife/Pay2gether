@@ -9,6 +9,20 @@
             "Li-Lun Wong",
             "Polung Chen",
             "Kristine Chuang"
+        ],
+        "Transactions": [
+          {
+            "User": "Kevin Soong",
+            "Amount": 100,
+            "Time": "2015-10-24T16:40:00.000Z",
+            "Description": "Wicked Spoon"
+          },
+          {
+            "User": "Betsy Kao",
+            "Amount": 50,
+            "Time": "2015-10-23T09:00:00.000Z",
+            "Description": "Taxi"
+          }
         ]
     },
     {
