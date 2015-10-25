@@ -15,25 +15,25 @@
             "User": "Kevin Soong",
             "Amount": 324,
             "Time": "2015-10-24T16:40:00.000Z",
-            "Description": “Christy Hill restaurant”
+            "Description": "Christy Hill restaurant"
           },
           {
             "User": "Betsy Kao",
             "Amount": 350,
             "Time": "2015-10-23T09:00:00.000Z",
-            "Description": “Uber”
+            "Description": "Uber"
           },
           {
-            "User": “Polung Chen",
+            "User": "Polung Chen",
             "Amount": 676,
             "Time": "2015-10-31T16:40:00.000Z",
-            "Description": “Spa (booked from Living Social)”
+            "Description": "Spa (booked from Living Social)"
           },
           {
-            "User": “Kristine Chuang“,
+            "User": "Kristine Chuang",
             "Amount": 1017,
             "Time": "2015-10-10T09:00:00.000Z",
-            "Description": “Airbnb Lake View House”
+            "Description": "Airbnb Lake View House"
           }
         ]
     },
