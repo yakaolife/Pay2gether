@@ -8,6 +8,7 @@ var Avatar = require('material-ui/lib/avatar');
 var IconButton = require('material-ui/lib/icon-button');
 var IconContentAdd = require('material-ui/lib/svg-icons/content/add');
 var FlatButton = require('material-ui/lib/flat-button');
+var TextField = require('material-ui/lib/text-field');
 var NavigationArrowBack = require('material-ui/lib/svg-icons/navigation/arrow-back');
 
 var PoolDetailTitle = React.createClass({
@@ -15,7 +16,7 @@ var PoolDetailTitle = React.createClass({
     console.log("title=" + this.props.title);
     return (
         <AppBar
-            title={this.props.title}
+            title={<center><h3>{this.props.title}</h3></center>}
             iconElementLeft={<IconButton onClick={this.props.toHomePageView}><NavigationArrowBack /></IconButton>} />);
   }
 });
@@ -183,12 +184,21 @@ var AddPoolPageView = React.createClass({
 
   render: function() {
             console.log('AppPoolRender');
+    var buttonStyle = {
+      backgroundColor: 'transparent',
+      color: 'white',
+      margintop: '8px',
+    };
     return (
       <div>
-        <AppBar title="Pools"
-          iconElementLeft={<FlatButton label="Cancel" onClick={this.props.toHomePageView}/>}
-          iconElementRight={<FlatButton label="Create" onClick={this.props.toHomePageView}/>}
+        <AppBar title={<center><h3>ADD POOL</h3></center>}
+          iconElementLeft={<FlatButton label="Cancel" onClick={this.props.toHomePageView} style={buttonStyle}/>}
+          iconElementRight={<FlatButton label="Create" onClick={this.props.toHomePageView} style={buttonStyle}/>}
         />
+        <List>
+          <ListItem><TextField fullWidth="true" hintText="Title" /></ListItem>
+          <ListItem><TextField fullWidth="true" hintText="Pool With..." /></ListItem>
+        </List>
       </div>
     );
   }
@@ -204,7 +214,8 @@ var HomePageView = React.createClass({
             console.log(this.props);
     return (
       <div>
-        <AppBar title="Pools"
+        <AppBar
+          title={<center><h3>POOL</h3></center>}
           iconElementRight={
             <IconButton onClick={this.props.toAddPoolPageView}>
               <IconContentAdd />
