@@ -30,10 +30,12 @@ var PoolDetailHistory = React.createClass({
 var PoolDetail = React.createClass({
   render: function() {
     return (
-        <PoolDetailTitle />
-        <PoolDetailPeople />
-        <PoolDetailRemaining />
-        <PoolDetailHistory />
+        <div>
+          <PoolDetailTitle />
+          <PoolDetailPeople />
+          <PoolDetailRemaining />
+          <PoolDetailHistory />
+        </div>
     );
   }
 });
