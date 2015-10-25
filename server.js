@@ -41,21 +41,23 @@ io.on('connection', function(socket){
 
 	});
 
-	socket.on('getGroup', function(groupName){
+	socket.on('getGroupInfo', function(groupName){
 		console.log("getGroup: will return group info");
 		fs.readFile('_groups.json', 'utf8', function(error, groups){
 			groups = JSON.parse(groups);
-			matched = groups.map(function(group){
+			matchedGroup = groups.map(function(group){
 				if(group.Name == groupName){
 					console.log("FOUND MATCH!");
 					return group;
 				}
 			});
 
-			// if(matched){
+			if(matchedGroup){
+				socket.emit('returnGroupInfo', matchedGroup);
+			}else{
+				console.log("Group name not found");
+			}
 
-			// }
-			//socket.emit('returnGroups', groups);
 		});
 
 	});
@@ -85,9 +87,9 @@ io.on('connection', function(socket){
 		});
 	});
 
-	socket.on('getPerson', function(name){
-		console.log("Search for this person: "+ name);
-	});
+	// socket.on('getPerson', function(name){
+	// 	console.log("Search for this person: "+ name);
+	// });
 
 	socket.on('addNewPerson', function(person, callback){
 		console.log("addNewPerson");

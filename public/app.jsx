@@ -35,7 +35,7 @@ var PoolList = React.createClass({
       that.setState({pools: pools});
     });
     this.socket.emit('getAllPool');
-    this.setState({pools: {}});
+    this.setState({pools: [{Name: "AAA", MoneyValue: 123}, {Name: "BBB", MoneyValue: 456}]});
   },
 
   render: function() {
@@ -44,7 +44,7 @@ var PoolList = React.createClass({
         return (<Pool pool={pool}>);
       });
     } else {
-      Pools = <div>No pool created</div>;
+//      Pools = <div>No pool created</div>;
     }
     return <List subheader="Pools"> {Pools} </List>;
   }
@@ -54,8 +54,8 @@ var Pool = React.createClass({
   render: function() {
     return
       <div>
-        {this.props.group.Name} :
-        {this.props.group.MoneyValue}
+        {this.props.pool.Name} :
+        {this.props.pool.MoneyValue}
       </div>;
   }
 });
