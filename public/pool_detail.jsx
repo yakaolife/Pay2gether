@@ -21,7 +21,10 @@ var PoolDetailMember = React.createClass({
   render: function() {
     return (
         <li>
-          <div style={{maxWidth: 48 + 'px'}}>
+          <div style=
+            {{
+              maxWidth: 48 + 'px',
+            }}>
             <Avatar src='asset/people_1.png' />
             <div>{this.props.member}</div>
           </div>
@@ -43,7 +46,29 @@ var PoolDetailMembers = React.createClass({
 
 var PoolDetailValue = React.createClass({
   render: function() {
-    return (<div />);
+    var total_remaining = this.props.remaining;
+    var my_remaining = total_remaining / this.props.num_members;
+    var portion_remaining = this.props.remaining / this.props.limit;
+    return (
+        <div style=
+          {{
+            width: 300 + 'px',
+            margin: 'auto'
+          }}>
+          <div style=
+            {{
+              fontSize: 60,
+            }}>
+            {total_remaining}
+          </div>
+          <div style=
+            {{
+              verticalAlign: 'text-bottom',
+              fontSize: 24
+            }}>
+            {'My: ' + my_remaining}
+          </div>
+        </div>);
   }
 });
 
@@ -133,7 +158,7 @@ var PoolDetail = React.createClass({
         <div>
           <PoolDetailTitle title={this.state.Name} toHomePageView={this.props.toHomePageView}/>
           <PoolDetailMembers members={this.state.Members} />
-          <PoolDetailValue limit={this.state.MoneyValue} current={this.state.CurrentValue} />
+          <PoolDetailValue limit={this.state.MoneyValue} remaining={this.state.CurrentValue} num_members={this.state.Members.length} />
           <PoolDetailHistory transactions={this.state.Transactions} />
         </div>
     );
