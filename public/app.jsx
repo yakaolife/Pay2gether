@@ -3,23 +3,26 @@ var ReactDOM = require('react-dom')
 var RaisedButton = require('material-ui/lib/raised-button');
 var List = require('material-ui/lib/lists/list');
 var ListItem = require('material-ui/lib/lists/list-item');
+var AppBar = require('material-ui/lib/app-bar');
+var Avatar = require('material-ui/lib/avatar');
+var IconButton = require('material-ui/lib/icon-button');
+var IconContentAdd = require('material-ui/lib/svg-icons/content/add');
 
-var clientToken = "Test";
+var HomePageView = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
 
-var TestButton = React.createClass({
-	handleClick: function(e){
-
-		console.log("The button is clicked!");
-		this.socket = io();
-		this.socket.emit('click');
-
-	},
-
-	render: function(){
-		return(
-			<button type="button" onClick={this.handleClick}> {this.props.text}</button>
-		);
-	}
+  render: function() {
+    return (
+      <div>
+        <AppBar title="Pools"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          iconElementRight={<IconButton><IconContentAdd /></IconButton>}/>
+        <PoolList/>
+      </div>
+    );
+  }
 });
 
 var PoolList = React.createClass({
@@ -42,25 +45,24 @@ var PoolList = React.createClass({
 
   render: function() {
     if (this.state.pools) {
-      var Pools = this.state.pools.map(function(pool) {
-        return (<Pool key={pool.Name} pool={pool} />);
+      var PoolItems = this.state.pools.map(function(pool) {
+        return (<PoolItem key={pool.Name} pool={pool} />);
       });
     } else {
-      var Pools = [<ListItem key="1" primaryText="testsetestste" />];
+      var PoolItems = [];
     }
-    console.log(Pools);
-    return <List subheader="Pools"> {Pools} </List>;
+    return (<List> {PoolItems} </List>);
   }
 });
 
-var Pool = React.createClass({
+var PoolItem = React.createClass({
   render: function() {
-    return(
+    return (
       <ListItem
+        leftAvatar={<Avatar src="asset/people_1.png" />}
         primaryText={this.props.pool.Name}
         secondaryText={this.props.pool.MoneyValue}
-      />
-      );
+      />);
   }
 });
 
@@ -87,9 +89,7 @@ var Pay2getherApp = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1>{this.state.words}</h1>
-				<TestButton text = "Connect BrainTree?"/>
-        <PoolList />
+        <HomePageView />
 			</div>
 		);
 	}
