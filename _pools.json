@@ -1,16 +1,28 @@
 [
     {
-        "Name": "Money2020",
-        "MoneyValue": "300",
-        "CurrentValue": 140,
+        "Name": "Lake Tahoe Ski Trip",
+        "MoneyValue": "3000",
+        "CurrentValue": 968,
         "Members": [
             "Kevin Soong",
             "Betsy Kao",
-            "Li-Lun Wong",
+            "Li-Lun Wang",
             "Polung Chen",
             "Kristine Chuang"
         ],
         "Transactions": [
+          {
+            "User": "Kristine Chuang",
+            "Amount": 1017,
+            "Time": "2015-10-10T09:00:00.000Z",
+            "Description": "Airbnb Lake View House"
+          },
+          {
+            "User": "Betsy Kao",
+            "Amount": 15,
+            "Time": "2015-10-23T09:00:00.000Z",
+            "Description": "Uber"
+          },
           {
             "User": "Kevin Soong",
             "Amount": 324,
@@ -18,22 +30,10 @@
             "Description": "Christy Hill restaurant"
           },
           {
-            "User": "Betsy Kao",
-            "Amount": 350,
-            "Time": "2015-10-23T09:00:00.000Z",
-            "Description": "Uber"
-          },
-          {
             "User": "Polung Chen",
             "Amount": 676,
             "Time": "2015-10-31T16:40:00.000Z",
             "Description": "Spa (booked from Living Social)"
-          },
-          {
-            "User": "Kristine Chuang",
-            "Amount": 1017,
-            "Time": "2015-10-10T09:00:00.000Z",
-            "Description": "Airbnb Lake View House"
           }
         ]
     },
@@ -44,7 +44,7 @@
         "Members": [
             "Kevin Soong",
             "Betsy Kao",
-            "Li-Lun Wong"
+            "Li-Lun Wang"
         ],
         "Transactions":[]
 
