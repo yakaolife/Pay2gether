@@ -4,6 +4,7 @@ var RaisedButton = require('material-ui/lib/raised-button');
 var List = require('material-ui/lib/lists/list');
 var ListItem = require('material-ui/lib/lists/list-item');
 var AppBar = require('material-ui/lib/app-bar');
+var Avatar = require('material-ui/lib/avatar');
 
 var clientToken = "Test";
 
@@ -72,7 +73,7 @@ var PoolItem = React.createClass({
   render: function() {
     return (
       <ListItem
-        leftAvatar={<Avatar src="" />}
+        leftAvatar={<Avatar src="asset/people_1.png" />}
         primaryText={this.props.pool.Name}
         secondaryText={this.props.pool.MoneyValue}
       />);
