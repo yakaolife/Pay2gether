@@ -125,6 +125,7 @@ var PoolDetailHistory = React.createClass({
               time={transaction.Time}
               description={transaction.Description} />);
     }
+    transactions.reverse();
     return (<List subheader="Transactions">{transactions}</List>);
   }
 });
