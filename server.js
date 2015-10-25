@@ -117,27 +117,25 @@ io.on('connection', function(socket){
 		console.log("Charge money: need to give me the Pool name and amount");
 		fs.readFile('_pools.json', 'utf8', function(error, pools){
 			pools = JSON.parse(pools);
-
+			var matchedPool = null;
 
 			for(var i = 0; i<pools.length; i++){
 				if(pools[i].Name == pool.Name){
+					matchedPool = pools[i];
 					console.log("Found the pool, now charge");
+					//TODO: do we need to convert from string to int?
 					pools[i].CurrentValue -=chargeValue;
-
+					callback(pools[i], error);
 				}
 			}
-			matchedPool = pools.map(function(pool){
-				if(pool.Name == poolName){
-					pool.CurrentValue -=chargeValue;
-					return pool;
-				}
-			});
 
 			if(matchedPool){
-				fs.writeFile('_pool.json', JSON.stringify(pools, null, 4), function(matchedPool, error){
+				fs.writeFile('_pools.json', JSON.stringify(pools, null, 4), function(matchedPool, error){
 					console.log("Write updated pool file");
-					callback(matchedPool, error);
-				})
+					//callback(matchedPool, error);
+				});
+			}else{
+				callback(null, "For some reason cannot find the pool");
 			}
 		})
 
