@@ -1,3 +1,7 @@
+var React = require('react');
+var ReactDOM = require('react-dom')
+var RaisedButton = require('material-ui/lib/raised-button');
+
 var clientToken = "Test"; //TODO: Can I do this?
 
 var TestButton = React.createClass({
@@ -51,12 +55,15 @@ var Brain = React.createClass({
 			<div>
 				<h1>{this.state.words}</h1>
 				<TestButton text = "Connect BrainTree?"/>
+        <RaisedButton label="Default" /> 
+        <input type="text" placeholder="Your Braintree ID..."/>
+        <input type="text" placeholder="Your Braintree ID..."/>
 			</div>
 		);
 	}
 });
 
-React.render(
+ReactDOM.render(
 	<Brain/>,
 	document.getElementById('content')
 );
