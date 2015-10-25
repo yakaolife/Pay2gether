@@ -6,6 +6,7 @@
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
+		<div id="BrainTree"></div>
 		<div id="Pools"></div>
 		<h2>Search</h2>
 		<div id="searchPool"></div>
@@ -14,6 +15,42 @@
 
 
 		<script type="text/jsx">
+
+		var BrainTree = React.createClass({
+			getInitialState:function(){
+				return{
+					clientToken:null
+				};
+			},
+			componentDidMount:function(){
+				var that = this;
+				this.socket = io();
+				this.socket.emit('getClientToken', function(clientToken, error){
+
+					if(error){
+						console.log(error);
+					}else{
+						that.setState({clientToken: clientToken});
+					}
+
+				});
+			},
+			render:function(){
+				if(this.state.clientToken){
+					hasToken = "Yes";
+				}else{
+					hasToken = "No";
+				}
+				return(
+					<div className="BrainTreeStuff">
+						Got ClientToken? {hasToken}
+					</div>
+
+				);
+			}
+
+		});
+
 
 		var NewPool = React.createClass({
 			handleSubmit: function (e) {
@@ -250,6 +287,9 @@
 
 		});
 
+		React.render(
+			<BrainTree/>, document.getElementById('BrainTree')
+		);
 
 
 		React.render(

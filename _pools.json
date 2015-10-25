@@ -2,13 +2,17 @@
     {
         "Name": "Money2020",
         "MoneyValue": "300",
-        "CurrentValue": "150",
+        "CurrentValue": 140,
         "Members": [
             "Kevin Soong",
             "Betsy Kao",
             "Li-Lun Wong",
             "Polung Chen",
             "Kristine Chuang"
+        ],
+        "History":[
+            "Oct 25: Buying Skii Season Pass, $50",
+            "Nov 10: Gas, $30"
         ]
     },
     {
@@ -19,6 +23,10 @@
             "Kevin Soong",
             "Betsy Kao",
             "Li-Lun Wong"
+        ],
+        "History":[
+            "Oct 25: Buying Skii Season Pass, $50",
+            "Nov 10: Gas, $30"
         ]
     },
     {
@@ -29,7 +37,8 @@
             "Amy Kao",
             "Betsy Kao",
             "MuMu Lee"
-        ]
+        ],
+        "History":[]
     },
     {
         "Name": "testGroup2",
@@ -39,7 +48,8 @@
             "Amy Kao",
             "Betsy Kao",
             "MuMu Lee"
-        ]
+        ],
+        "History":[]
     },
     {
         "Name": "test3",
@@ -49,7 +59,8 @@
             "Amy Kao",
             "Betsy Kao",
             "MuMu Lee"
-        ]
+        ],
+        "History":[]
     },
     {
         "Name": "test4",
@@ -59,7 +70,7 @@
             "Amy Kao",
             "Betsy Kao",
             "MuMu Lee"
-        ]
-    } 
-
+        ], 
+        "History":[]
+    }
 ]
