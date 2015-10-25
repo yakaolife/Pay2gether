@@ -5,24 +5,8 @@ var List = require('material-ui/lib/lists/list');
 var ListItem = require('material-ui/lib/lists/list-item');
 var AppBar = require('material-ui/lib/app-bar');
 var Avatar = require('material-ui/lib/avatar');
-
-var clientToken = "Test";
-
-var TestButton = React.createClass({
-	handleClick: function(e){
-
-		console.log("The button is clicked!");
-		this.socket = io();
-		this.socket.emit('click');
-
-	},
-
-	render: function(){
-		return(
-			<button type="button" onClick={this.handleClick}> {this.props.text}</button>
-		);
-	}
-});
+var IconButton = require('material-ui/lib/icon-button');
+var IconContentAdd = require('material-ui/lib/svg-icons/content/add');
 
 var HomePageView = React.createClass({
   getInitialState: function() {
@@ -32,7 +16,9 @@ var HomePageView = React.createClass({
   render: function() {
     return (
       <div>
-        <AppBar title="Pools" iconClassNameRight="muidocs-icon-navigation-expand-more" />
+        <AppBar title="Pools"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+          iconElementRight={<IconButton><IconContentAdd /></IconButton>}/>
         <PoolList/>
       </div>
     );
@@ -103,8 +89,6 @@ var Pay2getherApp = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<h1>{this.state.words}</h1>
-				<TestButton text = "Connect BrainTree?"/>
         <HomePageView />
 			</div>
 		);
