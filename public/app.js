@@ -50,7 +50,7 @@
 	var ReactDOM = __webpack_require__(157);
 	var RaisedButton = __webpack_require__(158);
 
-	var clientToken = "Test"; //TODO: Can I do this?
+	var clientToken = "Test";
 
 	var TestButton = React.createClass({
 		displayName: 'TestButton',
@@ -59,10 +59,6 @@
 
 			console.log("The button is clicked!");
 			this.socket = io();
-			// this.socket.on('backToClient', function (result) {
-			// 	console.log("Socket on buttonClick, result:");
-			// 	console.log(result);
-			// });
 			this.socket.emit('click');
 		},
 
@@ -76,26 +72,20 @@
 		}
 	});
 
-	var Brain = React.createClass({
-		displayName: 'Brain',
+	var Pay2getherApp = React.createClass({
+		displayName: 'Pay2getherApp',
 
 		getInitialState: function getInitialState() {
 			return {
-				words: "Hello BrainTree"
+				words: "Hello Pay2gether App ^ o^"
 			};
 		},
 
-		//clientToken: null
 		componentDidMount: function componentDidMount() {
 			var that = this;
 			this.socket = io();
-			// this.socket.on('backToClient', function (response) {
-			// 	//Apparently we are out of scope now....
-			// 	that.setState({words: response});
-			// });
 			this.socket.on('getClientToken', function (token) {
 				that.setState({ words: "Connected" });
-				//Set the global client token
 				clientToken = token;
 				console.log("clientToken is " + clientToken);
 				braintree.setup(clientToken, "dropin", {
@@ -121,7 +111,7 @@
 		}
 	});
 
-	ReactDOM.render(React.createElement(Brain, null), document.getElementById('content'));
+	ReactDOM.render(React.createElement(Pay2getherApp, null), document.getElementById('content'));
 
 /***/ },
 /* 1 */
