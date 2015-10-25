@@ -13,7 +13,7 @@ var TestButton = React.createClass({
 
 	},
 
-	render:function(){
+	render: function(){
 		return(
 			<button type="button" onClick={this.handleClick}> {this.props.text}</button>
 		);
@@ -41,7 +41,7 @@ var PoolList = React.createClass({
   render: function() {
     if (this.state.pools) {
       Pools = this.state.pools.map(function(pool) {
-        return (<Pool pool={pool}>);
+        return (<Pool pool={pool} />);
       });
     } else {
 //      Pools = <div>No pool created</div>;
