@@ -41,7 +41,7 @@ var PoolDetailMembers = React.createClass({
     var member_list = [];
     var member;
     for (member of this.props.members) {
-      member_list.push(<PoolDetailMember member={member} />);
+      member_list.push(<PoolDetailMember key={member} member={member} />);
     }
     return (<ul>{member_list}</ul>);
   }
@@ -101,8 +101,10 @@ var PoolDetailTransaction = React.createClass({
   },
 
   render: function() {
+    var that=this;
     return (
         <ListItem
+            key={that.props.time}
             leftAvatar={<Avatar src='asset/people_1.png' />}
             primaryText={<span><span>{this.props.user}</span> <span style={{color: 'lightGrey'}}>{this.timeAgo()}</span></span>}
             secondaryText={'Spent $' + this.props.amount + ' for ' + this.props.description}
@@ -117,6 +119,7 @@ var PoolDetailHistory = React.createClass({
     for (transaction of this.props.transactions) {
       transactions.push(
           <PoolDetailTransaction
+              key={transaction.Time}
               user={transaction.User}
               amount={transaction.Amount}
               time={transaction.Time}
@@ -223,11 +226,13 @@ var PoolList = React.createClass({
     var that = this;
     this.socket = io();
 
-    this.socket.on('returnAllPoolss', function(pools) {
+    console.log('initital pools');
+    this.socket.on('returnAllPools', function(pools) {
+      console.log('get Pools');
+      console.log(pools);
       that.setState({pools: pools});
     });
     this.socket.emit('getAllPool');
-    this.setState({pools: [{Name: "AAA", MoneyValue: 123}, {Name: "BBB", MoneyValue: 456}]});
   },
 
   render: function() {
@@ -245,12 +250,13 @@ var PoolList = React.createClass({
 
 var PoolItem = React.createClass({
   render: function() {
+    var that = this;
     return (
       <ListItem
         leftAvatar={<Avatar src="asset/people_1.png" />}
         primaryText={this.props.pool.Name}
         secondaryText={this.props.pool.MoneyValue}
-        onClick={this.props.toPoolDetail}
+        onClick={that.props.toPoolDetail.bind(null, that.props.pool.Name)}
       />);
   }
 });
@@ -260,6 +266,7 @@ var Pay2getherApp = React.createClass({
 		return {
 			words: "Hello Pay2gether App ^ o^",
       viewName: "HomePageView",
+      poolName: "",
 		};
 	},
 
@@ -288,8 +295,8 @@ var Pay2getherApp = React.createClass({
                           console.log(event);
   },
 
-  changeToPoolDetail: function(event) {
-    this.setState({viewName: 'PoolDetail'});
+  changeToPoolDetail: function(poolName) {
+    this.setState({viewName: 'PoolDetail', poolName: poolName});
                           console.log(this.state.viewName);
                           console.log(event);
   },
@@ -311,6 +318,7 @@ var Pay2getherApp = React.createClass({
       var View =
         <PoolDetail
           toHomePageView={this.changeToHomePageView}
+          poolName={this.state.poolName}
         />;
     }
 		return (
