@@ -58,7 +58,7 @@ var PoolDetailValue = React.createClass({
           {{
             width: 300 + 'px',
             margin: 'auto',
-            backgroundImage: 'asset/pool_bg.gif'
+            backgroundImage: url('asset/pool_bg.gif')
           }}>
           <div style=
             {{
