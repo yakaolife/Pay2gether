@@ -7,6 +7,25 @@ var AppBar = require('material-ui/lib/app-bar');
 var Avatar = require('material-ui/lib/avatar');
 var IconButton = require('material-ui/lib/icon-button');
 var IconContentAdd = require('material-ui/lib/svg-icons/content/add');
+var FlatButton = require('material-ui/lib/flat-button');
+
+var AddPoolPageView = React.createClass({
+  getInitialState: function() {
+    return {};
+  },
+
+  render: function() {
+            console.log('AppPoolRender');
+    return (
+      <div>
+        <AppBar title="Pools"
+          iconElementLeft={<FlatButton label="Cancel" onClick={this.props.toHomePageView}/>}
+          iconElementRight={<FlatButton label="Create" onClick={this.props.toHomePageView}/>}
+        />
+      </div>
+    );
+  }
+});
 
 var HomePageView = React.createClass({
   getInitialState: function() {
@@ -14,11 +33,17 @@ var HomePageView = React.createClass({
   },
 
   render: function() {
+            console.log('HomeViewRender');
+            console.log(this.props);
     return (
       <div>
         <AppBar title="Pools"
-          iconClassNameRight="muidocs-icon-navigation-expand-more"
-          iconElementRight={<IconButton><IconContentAdd /></IconButton>}/>
+          iconElementRight={
+            <IconButton onClick={this.props.toAddPoolPageView}>
+              <IconContentAdd />
+            </IconButton>
+          }
+        />
         <PoolList/>
       </div>
     );
@@ -70,6 +95,7 @@ var Pay2getherApp = React.createClass({
 	getInitialState: function () {
 		return {
 			words: "Hello Pay2gether App ^ o^",
+      viewName: "HomePageView",
 		};
 	},
 
@@ -86,10 +112,34 @@ var Pay2getherApp = React.createClass({
 		})
 	},
 
+  changeToHomePageView: function(event) {
+    this.setState({viewName: 'HomePageView'});
+                          console.log(this.state.viewName);
+                          console.log(event);
+  },
+
+  changeToAddPoolPageView: function(event) {
+    this.setState({viewName: 'AddPoolPageView'});
+                          console.log(this.state.viewName);
+                          console.log(event);
+  },
+
 	render: function() {
+            console.log('App render');
+    if (this.state.viewName == 'HomePageView') {
+      var View =
+        <HomePageView
+          toAddPoolPageView={this.changeToAddPoolPageView}
+        />;
+    } else if (this.state.viewName == 'AddPoolPageView') {
+      var View =
+        <AddPoolPageView
+          toHomePageView={this.changeToHomePageView}
+        />;
+    }
 		return (
 			<div>
-        <HomePageView />
+        {View}
 			</div>
 		);
 	}

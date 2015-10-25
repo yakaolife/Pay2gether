@@ -10,9 +10,19 @@
             "Polung Chen",
             "Kristine Chuang"
         ],
-        "History":[
-            "Oct 25: Buying Skii Season Pass, $50",
-            "Nov 10: Gas, $30"
+        "Transactions": [
+          {
+            "User": "Kevin Soong",
+            "Amount": 100,
+            "Time": "2015-10-24T16:40:00.000Z",
+            "Description": "Wicked Spoon"
+          },
+          {
+            "User": "Betsy Kao",
+            "Amount": 50,
+            "Time": "2015-10-23T09:00:00.000Z",
+            "Description": "Taxi"
+          }
         ]
     },
     {
@@ -24,10 +34,8 @@
             "Betsy Kao",
             "Li-Lun Wong"
         ],
-        "History":[
-            "Oct 25: Buying Skii Season Pass, $50",
-            "Nov 10: Gas, $30"
-        ]
+        "Transactions":[]
+
     },
     {
         "Name": "testGroup",
@@ -38,7 +46,7 @@
             "Betsy Kao",
             "MuMu Lee"
         ],
-        "History":[]
+        "Transactions":[]
     },
     {
         "Name": "testGroup2",
@@ -49,7 +57,7 @@
             "Betsy Kao",
             "MuMu Lee"
         ],
-        "History":[]
+        "Transactions":[]
     },
     {
         "Name": "test3",
@@ -60,7 +68,7 @@
             "Betsy Kao",
             "MuMu Lee"
         ],
-        "History":[]
+        "Transactions":[]
     },
     {
         "Name": "test4",
@@ -71,6 +79,6 @@
             "Betsy Kao",
             "MuMu Lee"
         ], 
-        "History":[]
+        "Transactions":[]
     }
 ]
