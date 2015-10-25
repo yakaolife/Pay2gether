@@ -7,7 +7,7 @@ var Avatar = require('material-ui/lib/avatar');
 var List = require('material-ui/lib/lists/list');
 var ListItem = require('material-ui/lib/lists/list-item');
 
-var PoolDetailsTitle = React.createClass({
+var PoolDetailTitle = React.createClass({
   render: function() {
     return (
         <AppBar
@@ -16,9 +16,25 @@ var PoolDetailsTitle = React.createClass({
   }
 });
 
-var PoolDetails = React.createClass({
+var PoolDetailPeople = React.createClass({
   render: function() {
-    return (<PoolDetailsTitle />);
+  }
+});
+
+var PoolDetailRemaining = React.createClass({
+});
+
+var PoolDetailHistory = React.createClass({
+});
+
+var PoolDetail = React.createClass({
+  render: function() {
+    return (
+        <PoolDetailTitle />
+        <PoolDetailPeople />
+        <PoolDetailRemaining />
+        <PoolDetailHistory />
+    );
   }
 });
 
