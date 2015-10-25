@@ -19,13 +19,25 @@ var PoolDetailTitle = React.createClass({
 
 var PoolDetailMember = React.createClass({
   render: function() {
-    return (<div />);
+    return (
+        <li>
+          <div style={{maxWidth: 48 + 'px'}}>
+            <Avatar src='asset/people_1.png' />
+            <div>{this.props.member}</div>
+          </div>
+        </li>
+    );
   }
 });
 
 var PoolDetailMembers = React.createClass({
   render: function() {
-    return (<div />);
+    var member_list = []
+    var member;
+    for (member of this.props.members) {
+      member_list.push(<PoolDetailMember member={member} />);
+    }
+    return (<ul>{member_list}</ul>);
   }
 });
 
