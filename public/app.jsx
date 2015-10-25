@@ -15,7 +15,7 @@ var TestButton = React.createClass({
 
 	},
 
-	render:function(){
+	render: function(){
 		return(
 			<button type="button" onClick={this.handleClick}> {this.props.text}</button>
 		);
@@ -42,8 +42,8 @@ var PoolList = React.createClass({
 
   render: function() {
     if (this.state.pools) {
-      var Pools = this.state.pools.map(function(pool) {
-        return (<Pool pool={pool}/>);
+      Pools = this.state.pools.map(function(pool) {
+        return (<Pool pool={pool} />);
       });
     } else {
       var Pools = <ListItem primaryText="testsetestste" />;

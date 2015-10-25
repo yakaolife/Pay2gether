@@ -6,41 +6,42 @@
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
-		<div id="groups"></div>
-		<h2> People </h2>
-		<div id="people"></div>
+		<div id="Pools"></div>
+		<h2>Search</h2>
+		<div id="searchPool"></div>
+
 
 		<script type="text/jsx">
 
-		var NewGroup = React.createClass({
+		var NewPool = React.createClass({
 			handleSubmit: function (e) {
 				e.preventDefault();
 				var that = this;
-				var name = this.refs.groupName.getDOMNode().value;
+				var name = this.refs.PoolName.getDOMNode().value;
 				var money = this.refs.money.getDOMNode().value;
 				var currentValue = money;
 				var members = ["Amy Kao", "Betsy Kao", "MuMu Lee"];
 
-				var newGroup = {
+				var newPool = {
 					Name:name,
 					MoneyValue: money,
 					currentValue: currentValue,
 					Members: members
 				};
 
-				this.props.submitNewGroup(newGroup, function(){
+				this.props.submitNewPool(newPool, function(){
 					//Callback from the result
-					that.refs.groupName.getDOMNode().value = '';
+					that.refs.PoolName.getDOMNode().value = '';
 					that.refs.money.getDOMNode().value = '';
 
-					console.log("Create Group!!!!!");
+					console.log("Create Pool!!!!!");
 				});
 
 			},
 			render: function () {
 				return (
-					<form className="createGroupForm" onSubmit={this.handleSubmit}>
-						<input type="text" name="Name" ref="groupName" placeholder="Name" required /><br/>
+					<form className="createPoolForm" onSubmit={this.handleSubmit}>
+						<input type="text" name="Name" ref="PoolName" placeholder="Name" required /><br/>
 						<input type="text" name="Money" ref="money" placeholder="100 (in dollars)"/><br/>
 						<button type="submit" ref="submitButton">Create</button>
 					</form>
@@ -48,10 +49,11 @@
 			}
 		});
 
-		var Groups = React.createClass({
+		var Pools = React.createClass({
 			getInitialState: function(){
 				return{
-					groups: null
+					pools: null,
+					people: null
 				};
 			},
 
@@ -59,78 +61,142 @@
 				var that = this;
 				this.socket = io();
 
-				this.socket.on('returnAllGroups', function(groups){
-					console.log("Return all groups: "+groups);
-					that.setState({groups: groups});
+				this.socket.on('returnAllPools', function(pools){
+					console.log("Return all Pools: "+pools);
+					that.setState({pools: pools});
 
 				});
-				this.socket.emit('getAllGroup');
+				this.socket.on('returnPeople', function(people){
+					console.log("Return all people: "+people);
+					that.setState({people: people});
+				});
+				this.socket.emit('getAllPool');
+				this.socket.emit('getPeople');
 			},
 
-			submitNewGroup: function(group, callback){
-				console.log("submitNewGroup");
-				this.socket.emit('createGroup', group, function(error){
+			submitNewPool: function(pool, callback){
+				console.log("submitNewPool");
+				this.socket.emit('createPool', pool, function(error){
 					if(error){
-						console.error("New Group error: ", error);
+						console.error("New Pool error: ", error);
 					}else{
-						//that.socket.emit('getAllGroup');
+						//that.socket.emit('getAllPool');
 						callback();
 					}
 				});
 			},
 
 			render:function(){
-				if (this.state.groups) {
-					Groups = this.state.groups.map(function (group) {
-						return (<Group group={group} />);
+				if (this.state.pools) {
+					Pools = this.state.pools.map(function (pool) {
+						return (<Pool pool={pool} />);
 					});
 				}else{
-					Groups = <div>No groups...</div>;
+					Pools = <div>No Pools...</div>;
 				}
+
+				if(this.state.people){
+					People = this.state.people.map(function(person){
+						return(<Person person={person}/>);
+					});
+				}else{
+					People = <div>No People</div>
+				}
+
 				return(
 					<div className="all">
-						<h2>Create New Group:</h2>
-						<NewGroup submitNewGroup={this.submitNewGroup}/>
-						<h2>Groups</h2>
-						<div className = "groupList">
-							{Groups}
+						<h2>Create New Pool:</h2>
+						<NewPool submitNewPool={this.submitNewPool}/>
+						<h2>Pools</h2>
+						<div className = "PoolList">
+							{Pools}
+						</div>
+						<h2>People</h2>
+						<div className="peopleList">
+							{People}
 						</div>
 					</div>
 				);
 			}
 		});
 
-		var Group = React.createClass({
+		var Pool = React.createClass({
 			render:function(){
 				return(
 					<div>
-					{this.props.group.Name} : 
-					{this.props.group.MoneyValue}
+					{this.props.pool.Name} : 
+					{this.props.pool.MoneyValue}
 					</div>
 				);
 			}
 		});
 
-		var People = React.createClass({
+		var Person = React.createClass({
 			render:function(){
 				return(
 					<div>
-						Here are people!
+						<div><strong>Name:</strong>: {this.props.person.Name}</div>
+						<div><strong>Email:</strong>: {this.props.person.Email}</div>
+						<div><strong>Password:</strong>: {this.props.person.Password}</div>
+					</div>											
+				);
+			}
+
+		});
+
+		var GetPoolInfo = React.createClass({
+
+			getInitialState: function(){
+				return{
+					result: <div>...</div>
+				};
+			},
+
+			handleSubmit: function (e) {
+				e.preventDefault();
+				var that = this;
+				this.socket = io();
+				var name = this.refs.PoolName.getDOMNode().value;
+
+				this.socket.emit('getPoolInfo', name, function(pool, error){
+					if(error){
+						console.error("Get Pool info error: "+ error);
+					}else{
+						//that.socket.emit('getAllPool');
+						that.refs.PoolName.getDOMNode().value = '';
+						that.setState({result:pool});
+					}
+				});
+
+			},
+			render: function () {
+				return (
+					<div>
+						<form className="searchPool" onSubmit={this.handleSubmit}>
+							<input type="text" name="Name" ref="PoolName" placeholder="Name" required /><br/>
+							<button type="submit" ref="submitButton">Search</button>
+						</form>
+						<h3>Search Result</h3>
+						{this.state.result}
 					</div>
 				);
 			}
+
+
+
+
 		});
 
 
 
 		React.render(
-			<Groups/>,
-			document.getElementById('groups')
+			<Pools/>,
+			document.getElementById('Pools')
 		);
 
 		React.render(
-			<People/>, 
-			document.getElementById('people')
+			<GetPoolInfo/>, 
+			document.getElementById('searchPool')
 		);
 
 

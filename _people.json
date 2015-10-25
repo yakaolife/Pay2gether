@@ -1,18 +1,28 @@
 [
 	{
-		"Name": "Kevin Soong"
+		"Name": "Kevin Soong",
+		"Email": "kevinsoong@gmail.com",
+		"Password": "1111"
 	},
 	{
-		"Name": "Betsy Kao"
+		"Name": "Betsy Kao",
+		"Email":"betsykao@gmail.com",
+		"Password":"2222"
 	},
 	{
-		"Name": "Li-Lun Wong"
+		"Name": "Li-Lun Wong",
+		"Email":"lilunwong@gmail.com",
+		"Password":"3333"
 	},
 	{
-		"Name": "Polung Chen"
+		"Name": "Polung Chen",
+		"Email":"polungchen@gmail.com",
+		"Password": "4444"
 	},
 	{
-		"Name": "Kristine Chuang"
+		"Name": "Kristine Chuang",
+		"Email":"kristinechuang@gmail.com",
+		"Password":"5555"
 	}
 
 ]

@@ -30,48 +30,50 @@ io.on('connection', function(socket){
 
 	//TODO: need invitation mechanics
 
-	//Group
+	//Pool
 
-	socket.on('getAllGroup', function(groupName){
-		console.log("getAllGroup: will return group info");
-		fs.readFile('_groups.json', 'utf8', function(error, groups){
-			groups = JSON.parse(groups);
-			socket.emit('returnAllGroups', groups);
+	socket.on('getAllPool', function(){
+		console.log("getAllPool: will return all pools info");
+		fs.readFile('_pools.json', 'utf8', function(error, pools){
+			pools = JSON.parse(pools);
+			socket.emit('returnAllPools', pools);
 		});
 
 	});
 
-	socket.on('getGroupInfo', function(groupName){
-		console.log("getGroup: will return group info");
-		fs.readFile('_groups.json', 'utf8', function(error, groups){
-			groups = JSON.parse(groups);
-			matchedGroup = groups.map(function(group){
-				if(group.Name == groupName){
+	socket.on('getPoolInfo', function(poolName, callback){
+		console.log("getPool: will return pool info");
+		fs.readFile('_pools.json', 'utf8', function(error, pools){
+			pools = JSON.parse(pools);
+			matchedPool = pools.map(function(pool){
+				if(pool.Name == poolName){
 					console.log("FOUND MATCH!");
-					return group;
+					return pool;
 				}
 			});
 
-			if(matchedGroup){
-				socket.emit('returnGroupInfo', matchedGroup);
+			if(matchedPool){
+				callback(matchedPool, null);
+				//socket.emit('returnPoolInfo', matchedPool);
 			}else{
-				console.log("Group name not found");
+				callback(null, "No pool found");
+				console.log("Pool name not found");
 			}
 
 		});
 
 	});
 
-	socket.on('createGroup', function(newGroup, callback){
-		console.log("Create Group");
-		//Read the _groups.json file first
-		fs.readFile('_groups.json', 'utf8', function(error, groups){
-			groups = JSON.parse(groups);
-			groups.push(newGroup);
-			fs.writeFile('_groups.json', JSON.stringify(groups, null, 4), function(error){
-				console.log("Write groups file");
+	socket.on('createPool', function(newPool, callback){
+		console.log("Create Pool");
+		//Read the _pools.json file first
+		fs.readFile('_pools.json', 'utf8', function(error, pools){
+			pools = JSON.parse(pools);
+			pools.push(newPool);
+			fs.writeFile('_pools.json', JSON.stringify(pools, null, 4), function(error){
+				console.log("Write pools file");
 				callback(error);
-				socket.emit('returnAllGroups', groups);
+				socket.emit('returnAllPools', pools);
 			});
 		});
 
@@ -93,7 +95,7 @@ io.on('connection', function(socket){
 
 	socket.on('addNewPerson', function(person, callback){
 		console.log("addNewPerson");
-		//Read the _groups.json file first
+		//Read the _pools.json file first
 		fs.readFile('_people.json', 'utf8', function(error, people){
 			people = JSON.parse(people);
 			people.push(person);
@@ -108,7 +110,7 @@ io.on('connection', function(socket){
 	//Money
 
 	socket.on('chargeMoney', function(parameter){
-		console.log("Charge money: need to give me the group name and amount");
+		console.log("Charge money: need to give me the Pool name and amount");
 	});
 
 });
