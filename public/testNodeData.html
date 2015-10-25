@@ -214,13 +214,12 @@
 						console.error("Get Pool info error: "+ error);
 					}else{
 						that.setState({pool:pool});
-						console.log("CurrentValue is "+ pool.MoneyValue);
+						console.log("CurrentValue is "+ pool.CurrentValue);
 						//that.refs.MoneyValue.getDOMNode().value = pool.CurrentValue;
 					}
 				});
 
 			},
-
 
 
 			render:function(){
@@ -262,11 +261,6 @@
 			<GetPoolInfo/>, 
 			document.getElementById('searchPool')
 		);
-
-		// React.render(
-		// 	<ChargePool/>,
-		// 	document.getElementById('chargePool')
-		// );
 
 		</script>
 
