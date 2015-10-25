@@ -8,16 +8,12 @@ var url = require('url');
 var path = require('path');
 
 app.use('/material-ui', express.static(__dirname + '/node_modules/material-ui/'));
-//app.use('/react', express.static(__dirname + '/node_modules/react/'));
-var RaisedButton = require('material-ui/lib/raised-button');
 
 var server = app.listen(8081);
 console.log('Server listening on port 8081');
 
 // Socket.IO part
 var io = require('socket.io')(server);
-
-
 
 // var gateway=braintree.connect({
 // 	environment:braintree.Environment.Sandbox,

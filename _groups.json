@@ -100,5 +100,15 @@
             "Betsy Kao",
             "MuMu Lee"
         ]
+    },
+    {
+        "Name": "testset",
+        "MoneyValue": "130000000000",
+        "currentValue": "130000000000",
+        "Members": [
+            "Amy Kao",
+            "Betsy Kao",
+            "MuMu Lee"
+        ]
     }
 ]
