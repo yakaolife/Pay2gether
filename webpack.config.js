@@ -1,9 +1,12 @@
 module.exports = {
   context: __dirname + "/public",
-  entry: "./app.jsx",
+  entry: {
+    app: "./app.jsx",
+    pool_detail: "./pool_detail.jsx"
+  },
 
   output: {
-    filename: "app.js",
+    filename: "[name].js",
     path: __dirname + "/public",
   },
 
