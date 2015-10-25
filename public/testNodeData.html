@@ -1,0 +1,140 @@
+<html>
+	<head>
+		<title>Test Data From Node Server</title>
+		<script src="http://fb.me/react-0.12.2.js"></script>
+		<script src="http://fb.me/JSXTransformer-0.12.2.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+		<div id="groups"></div>
+		<h2> People </h2>
+		<div id="people"></div>
+
+		<script type="text/jsx">
+
+		var NewGroup = React.createClass({
+			handleSubmit: function (e) {
+				e.preventDefault();
+				var that = this;
+				var name = this.refs.groupName.getDOMNode().value;
+				var money = this.refs.money.getDOMNode().value;
+				var currentValue = money;
+				var members = ["Amy Kao", "Betsy Kao", "MuMu Lee"];
+
+				var newGroup = {
+					Name:name,
+					MoneyValue: money,
+					currentValue: currentValue,
+					Members: members
+				};
+
+				this.props.submitNewGroup(newGroup, function(){
+					//Callback from the result
+					that.refs.groupName.getDOMNode().value = '';
+					that.refs.money.getDOMNode().value = '';
+
+					console.log("Create Group!!!!!");
+				});
+
+			},
+			render: function () {
+				return (
+					<form className="createGroupForm" onSubmit={this.handleSubmit}>
+						<input type="text" name="Name" ref="groupName" placeholder="Name" required /><br/>
+						<input type="text" name="Money" ref="money" placeholder="100 (in dollars)"/><br/>
+						<button type="submit" ref="submitButton">Create</button>
+					</form>
+				);
+			}
+		});
+
+		var Groups = React.createClass({
+			getInitialState: function(){
+				return{
+					groups: null
+				};
+			},
+
+			componentDidMount:function(){
+				var that = this;
+				this.socket = io();
+
+				this.socket.on('returnAllGroups', function(groups){
+					console.log("Return all groups: "+groups);
+					that.setState({groups: groups});
+
+				});
+				this.socket.emit('getAllGroup');
+			},
+
+			submitNewGroup: function(group, callback){
+				console.log("submitNewGroup");
+				this.socket.emit('createGroup', group, function(error){
+					if(error){
+						console.error("New Group error: ", error);
+					}else{
+						//that.socket.emit('getAllGroup');
+						callback();
+					}
+				});
+			},
+
+			render:function(){
+				if (this.state.groups) {
+					Groups = this.state.groups.map(function (group) {
+						return (<Group group={group} />);
+					});
+				}else{
+					Groups = <div>No groups...</div>;
+				}
+				return(
+					<div className="all">
+						<h2>Create New Group:</h2>
+						<NewGroup submitNewGroup={this.submitNewGroup}/>
+						<h2>Groups</h2>
+						<div className = "groupList">
+							{Groups}
+						</div>
+					</div>
+				);
+			}
+		});
+
+		var Group = React.createClass({
+			render:function(){
+				return(
+					<div>
+					{this.props.group.Name} : 
+					{this.props.group.MoneyValue}
+					</div>
+				);
+			}
+		});
+
+		var People = React.createClass({
+			render:function(){
+				return(
+					<div>
+						Here are people!
+					</div>
+				);
+			}
+		});
+
+
+
+		React.render(
+			<Groups/>,
+			document.getElementById('groups')
+		);
+
+		React.render(
+			<People/>, 
+			document.getElementById('people')
+		);
+
+
+		</script>
+
+	</body>
+</html> 

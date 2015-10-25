@@ -16,41 +16,111 @@ var io = require('socket.io')(server);
 
 
 
-var gateway=braintree.connect({
-	environment:braintree.Environment.Sandbox,
-	merchantId: "4s2bz328sgj8h75b",
-	publicKey:"t3xh48knfw2zxzv9",
-	privateKey:"0c52e5917f8e580e62b849b1774a9788"
-});
+// var gateway=braintree.connect({
+// 	environment:braintree.Environment.Sandbox,
+// 	merchantId: "4s2bz328sgj8h75b",
+// 	publicKey:"t3xh48knfw2zxzv9",
+// 	privateKey:"0c52e5917f8e580e62b849b1774a9788"
+// });
 
 
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 io.on('connection', function(socket){
-	console.log("A user connected");
-	socket.on('click', function(){
-		console.log("node got the click");
+	//console.log("A user connected");
 
-		gateway.clientToken.generate({}, function(err, response){
-			//Probably should do error handling?
-			//response.send(response.clientToken);
-			console.log("Call Gateway with response "+response.clientToken);
-			if(response.clientToken){
-				socket.emit('getClientToken', response.clientToken);
-			}
+	//TODO: need invitation mechanics
+
+	//Group
+
+	socket.on('getAllGroup', function(groupName){
+		console.log("getAllGroup: will return group info");
+		fs.readFile('_groups.json', 'utf8', function(error, groups){
+			groups = JSON.parse(groups);
+			socket.emit('returnAllGroups', groups);
 		});
 
-		// var response = "Trip back to client";
-		// socket.emit('backToClient',response);
 	});
 
-	// socket.on('createCustomer', function(customer){
-	// 	//customer is a json object containing all the info
+	socket.on('getGroup', function(groupName){
+		console.log("getGroup: will return group info");
+		fs.readFile('_groups.json', 'utf8', function(error, groups){
+			groups = JSON.parse(groups);
+			matched = groups.map(function(group){
+				if(group.Name == groupName){
+					console.log("FOUND MATCH!");
+					return group;
+				}
+			});
 
+			// if(matched){
 
-	// });
+			// }
+			//socket.emit('returnGroups', groups);
+		});
+
+	});
+
+	socket.on('createGroup', function(newGroup, callback){
+		console.log("Create Group");
+		//Read the _groups.json file first
+		fs.readFile('_groups.json', 'utf8', function(error, groups){
+			groups = JSON.parse(groups);
+			groups.push(newGroup);
+			fs.writeFile('_groups.json', JSON.stringify(groups, null, 4), function(error){
+				console.log("Write groups file");
+				callback(error);
+				socket.emit('returnAllGroups', groups);
+			});
+		});
+
+	});
+
+	//People
+
+	socket.on('getPeople', function(){
+		console.log("getPeople: Get all existing people from JSON file");
+		fs.readFile('_people.json', 'utf8', function(error, people){
+			people = JSON.parse(people);
+			socket.emit('returnPeople', people);
+		});
+	});
+
+	socket.on('getPerson', function(name){
+		console.log("Search for this person: "+ name);
+	});
+
+	socket.on('addNewPerson', function(person, callback){
+		console.log("addNewPerson");
+		//Read the _groups.json file first
+		fs.readFile('_people.json', 'utf8', function(error, people){
+			people = JSON.parse(people);
+			people.push(person);
+			fs.writeFile('_people.json', JSON.stringify(people, null, 4), function(error){
+				console.log("Write people file");
+				callback(error);
+				socket.emit('returnPeople', people);
+			});
+		});
+	});
+
+	//Money
+
+	socket.on('chargeMoney', function(parameter){
+		console.log("Charge money: need to give me the group name and amount");
+	});
 
 });
+
+
+// fs.readFile('_comments.json', 'utf8', function(err, comments) {
+// 	comments = JSON.parse(comments);
+// 	comments.push(comment);
+// 	fs.writeFile('_comments.json', JSON.stringify(comments, null, 4), function (err) {
+// 		io.emit('comments', comments);
+// 		callback(err);
+// 	});
+// });
 
 //Write POST in Node without library
 //http://stackoverflow.com/questions/6158933/how-to-make-an-http-post-request-in-node-js
