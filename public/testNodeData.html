@@ -6,12 +6,51 @@
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
+		<div id="BrainTree"></div>
 		<div id="Pools"></div>
 		<h2>Search</h2>
 		<div id="searchPool"></div>
+<!-- 		<h2>Charge?</h2>
+		<div id="chargePool"></div> -->
 
 
 		<script type="text/jsx">
+
+		var BrainTree = React.createClass({
+			getInitialState:function(){
+				return{
+					clientToken:null
+				};
+			},
+			componentDidMount:function(){
+				var that = this;
+				this.socket = io();
+				this.socket.emit('getClientToken', function(clientToken, error){
+
+					if(error){
+						console.log(error);
+					}else{
+						that.setState({clientToken: clientToken});
+					}
+
+				});
+			},
+			render:function(){
+				if(this.state.clientToken){
+					hasToken = "Yes";
+				}else{
+					hasToken = "No";
+				}
+				return(
+					<div className="BrainTreeStuff">
+						Got ClientToken? {hasToken}
+					</div>
+
+				);
+			}
+
+		});
+
 
 		var NewPool = React.createClass({
 			handleSubmit: function (e) {
@@ -25,7 +64,7 @@
 				var newPool = {
 					Name:name,
 					MoneyValue: money,
-					currentValue: currentValue,
+					CurrentValue: currentValue,
 					Members: members
 				};
 
@@ -159,12 +198,16 @@
 				var name = this.refs.PoolName.getDOMNode().value;
 
 				this.socket.emit('getPoolInfo', name, function(pool, error){
+					console.log("WE GOT THE CALL BACK");
+
 					if(error){
 						console.error("Get Pool info error: "+ error);
 					}else{
 						//that.socket.emit('getAllPool');
 						that.refs.PoolName.getDOMNode().value = '';
+						console.log("Did we get the pool back? "+pool.Name);
 						that.setState({result:pool});
+
 					}
 				});
 
@@ -178,6 +221,8 @@
 						</form>
 						<h3>Search Result</h3>
 						{this.state.result}
+						<h3>Charge Pool</h3>
+						<ChargePool pool={this.state.result}/>
 					</div>
 				);
 			}
@@ -187,6 +232,64 @@
 
 		});
 
+		var ChargePool = React.createClass({
+
+			//IMPORTANT:
+			//	This whole function is for test purpose, not good coding
+
+			chargeSubmit: function(e){
+				var that = this;
+				this.socket = io();
+
+				e.preventDefault();
+
+				var pool = this.props.pool;
+				var chargeValue = this.refs.chargeValue.getDOMNode().value;
+
+				this.socket.emit('chargeValue', pool, chargeValue, function(pool, error){
+					if(error){
+						console.error("Get Pool info error: "+ error);
+					}else{
+						that.setState({pool:pool});
+						console.log("CurrentValue is "+ pool.CurrentValue);
+						//that.refs.MoneyValue.getDOMNode().value = pool.CurrentValue;
+					}
+				});
+
+			},
+
+
+			render:function(){
+				// var that = this;
+				// this.socket = io();
+
+
+				if(!this.props.pool){
+					poolName = ""
+					currentValue = ""
+				}else{
+					console.log("We have a pool now!");
+					poolName = this.props.pool.Name;
+					currentValue = this.props.pool.CurrentValue
+				}
+
+				return(
+
+					<div>
+						<form className="chargePool" onSubmit={this.chargeSubmit}>
+							<input type="text" name="amount" ref="chargeValue" placeholder={currentValue} required/><br/>
+							<button type="submit" ref="submitButton">Charge</button>
+						</form>
+
+					</div>
+				);	
+			}
+
+		});
+
+		React.render(
+			<BrainTree/>, document.getElementById('BrainTree')
+		);
 
 
 		React.render(
@@ -198,7 +301,6 @@
 			<GetPoolInfo/>, 
 			document.getElementById('searchPool')
 		);
-
 
 		</script>
 
