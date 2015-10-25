@@ -42,31 +42,25 @@ var PoolList = React.createClass({
 
   render: function() {
     if (this.state.pools) {
-      Pools = this.state.pools.map(function(pool) {
-        return (<Pool pool={pool} />);
+      var Pools = this.state.pools.map(function(pool) {
+        return (<Pool key={pool.Name} pool={pool} />);
       });
     } else {
-      var Pools = <ListItem primaryText="testsetestste" />;
+      var Pools = [<ListItem key="1" primaryText="testsetestste" />];
     }
     console.log(Pools);
-/*    return <List>
-        <ListItem primaryText="Inbox" />
-          <ListItem primaryText="Starred" />
-            <ListItem primaryText="Sent mail" />
-              <ListItem primaryText="Drafts" />
-                <ListItem primaryText="Inbox" />
-                </List>;*/
-    return <List subheader="Pools"> Pools </List>;
+    return <List subheader="Pools"> {Pools} </List>;
   }
 });
 
 var Pool = React.createClass({
   render: function() {
-    return
+    return(
       <ListItem
         primaryText={this.props.pool.Name}
         secondaryText={this.props.pool.MoneyValue}
-      />;
+      />
+      );
   }
 });
 
