@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom')
 var RaisedButton = require('material-ui/lib/raised-button');
+var List = require('material-ui/lib/lists/list');
+var ListItem = require('material-ui/lib/lists/list-item');
 
 var clientToken = "Test";
 
@@ -40,23 +42,31 @@ var PoolList = React.createClass({
 
   render: function() {
     if (this.state.pools) {
-      Pools = this.state.pools.map(function(pool) {
-        return (<Pool pool={pool}>);
+      var Pools = this.state.pools.map(function(pool) {
+        return (<Pool pool={pool}/>);
       });
     } else {
-//      Pools = <div>No pool created</div>;
+      var Pools = <ListItem primaryText="testsetestste" />;
     }
-    return <List subheader="Pools"> {Pools} </List>;
+    console.log(Pools);
+/*    return <List>
+        <ListItem primaryText="Inbox" />
+          <ListItem primaryText="Starred" />
+            <ListItem primaryText="Sent mail" />
+              <ListItem primaryText="Drafts" />
+                <ListItem primaryText="Inbox" />
+                </List>;*/
+    return <List subheader="Pools"> Pools </List>;
   }
 });
 
 var Pool = React.createClass({
   render: function() {
     return
-      <div>
-        {this.props.pool.Name} :
-        {this.props.pool.MoneyValue}
-      </div>;
+      <ListItem
+        primaryText={this.props.pool.Name}
+        secondaryText={this.props.pool.MoneyValue}
+      />;
   }
 });
 
